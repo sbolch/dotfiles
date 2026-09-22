@@ -1,0 +1,14 @@
+{
+	"layer": "top",
+	"position": "top",
+	"height": 30,
+	"modules-left": ["custom/launcher", "hyprland/workspaces"],
+	"modules-center": ["clock"],
+	"modules-right": ["network", "pulseaudio", "battery", "tray"],
+
+	"custom/launcher": {
+		"format": "R",
+		"on-click": "rofi -show drun",
+		"tooltip": false
+	}
+}
