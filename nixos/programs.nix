@@ -41,5 +41,6 @@
     pcscd.enable = true;
 
     tailscale.enable = true;
+    flatpak.enable = true;
   };
 }
