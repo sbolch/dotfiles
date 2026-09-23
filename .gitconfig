@@ -1,0 +1,15 @@
+[user]
+	name = Szabolcs Surányi
+	email = sbolch@pm.me
+	signingkey = /home/szabolcs/.ssh/id_ed25519
+[core]
+	autocrlf = input
+	editor = hx
+[gpg]
+	format = ssh
+[init]
+	defaultBranch = main
+[commit]
+	gpgsign = true
+[pull]
+	rebase = true
