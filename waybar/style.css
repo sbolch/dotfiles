@@ -1,0 +1,160 @@
+@define-color bg0 #2d353b;
+@define-color bg1 #343f44;
+@define-color bg2 #3d484d;
+@define-color fg #d3c6aa;
+@define-color muted #859289;
+@define-color green #a7c080;
+@define-color yellow #dbbc7f;
+@define-color red #e67e80;
+
+* {
+    font-family: "Fira Sans", "FiraCode Nerd Font Mono", "OpenMoji", sans-serif;
+    font-size: 13px;
+    border: none;
+    border-radius: 0;
+    min-height: 0;
+}
+
+window#waybar {
+    background: @bg0;
+    color: @fg;
+    border-bottom: 1px solid @bg2;
+}
+
+tooltip {
+    background: @bg1;
+    border: 1px solid @bg2;
+    border-radius: 6px;
+}
+
+tooltip label {
+    color: @fg;
+    padding: 6px;
+}
+
+#power-menu {
+    background: @bg0;
+    color: @fg;
+    border: 1px solid @bg2;
+    border-radius: 6px;
+    padding: 4px;
+}
+
+#power-menu menuitem {
+    padding: 8px 16px;
+    border-radius: 4px;
+}
+
+#power-menu menuitem:hover {
+    background: @bg1;
+}
+
+#power-menu menuitem label {
+    color: @fg;
+}
+
+#power-menu menuitem:hover label {
+    color: @green;
+}
+
+#custom-launcher,
+#custom-hyprshutdown,
+#clock,
+#network,
+#pulseaudio,
+#battery,
+#tray {
+    margin: 4px 0;
+    padding: 0 10px;
+    border-radius: 6px;
+}
+
+#custom-launcher {
+    margin-left: 8px;
+    padding: 0 8px;
+    font-size: 16px;
+}
+
+#custom-hyprshutdown {
+    margin-right: 8px;
+    padding: 0 8px;
+    font-size: 16px;
+}
+
+#workspaces button {
+    margin: 4px 2px;
+    padding: 0 8px;
+    border-radius: 6px;
+    background: transparent;
+    background-image: none;
+    color: @muted;
+    box-shadow: none;
+    text-shadow: none;
+}
+
+#workspaces button,
+#clock,
+#pulseaudio,
+#battery {
+    font-family: "FiraCode Nerd Font Mono", "OpenMoji", monospace;
+}
+
+#workspaces button:hover,
+#custom-launcher:hover,
+#custom-hyprshutdown:hover,
+#network:hover,
+#pulseaudio:hover {
+    background: @bg1;
+    color: @fg;
+}
+
+#workspaces button.visible {
+    color: @fg;
+}
+
+#workspaces button.active {
+    background: @green;
+    color: @bg0;
+}
+
+#workspaces button.urgent {
+    background: @red;
+    color: @bg0;
+}
+
+#clock {
+    color: @green;
+}
+
+#network.disconnected,
+#network.disabled,
+#pulseaudio.muted {
+    color: @muted;
+}
+
+#battery.warning:not(.charging):not(.plugged):not(.full) {
+    color: @yellow;
+}
+
+#battery.critical:not(.charging):not(.plugged):not(.full) {
+    color: @red;
+}
+
+#battery.charging,
+#battery.plugged,
+#battery.full {
+    color: @green;
+}
+
+#tray {
+    border-left: 1px solid @bg2;
+    border-radius: 0;
+}
+
+#tray > .passive {
+    -gtk-icon-effect: dim;
+}
+
+#tray > .needs-attention {
+    -gtk-icon-effect: highlight;
+}

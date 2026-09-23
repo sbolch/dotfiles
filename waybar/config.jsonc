@@ -1,14 +1,86 @@
 {
 	"layer": "top",
 	"position": "top",
-	"height": 30,
+	"height": 34,
+	"spacing": 4,
+
 	"modules-left": ["custom/launcher", "hyprland/workspaces"],
 	"modules-center": ["clock"],
-	"modules-right": ["network", "pulseaudio", "battery", "tray"],
+	"modules-right": ["network", "pulseaudio", "battery", "tray", "custom/hyprshutdown"],
 
 	"custom/launcher": {
-		"format": "R",
+		"format": "<span font_family='OpenMoji'>🌿</span>",
 		"on-click": "rofi -show drun",
 		"tooltip": false
+	},
+
+	"hyprland/workspaces": {
+		"format": "{name}",
+		"sort-by": "number"
+	},
+
+	"clock": {
+		"format": "{:%A - %H:%M}",
+		"tooltip-format": "{:%Y-%m-%d}",
+		"on-click": "gsimplecal"
+	},
+
+	"network": {
+		"format-wifi": "<span font_family='OpenMoji'>📶</span>  {essid}",
+		"format-ethernet": "<span font_family='OpenMoji'>🔌</span>  Wired",
+		"format-linked": "<span font_family='OpenMoji'>🔌</span>  Connecting",
+		"format-disconnected": "<span font_family='OpenMoji'>🚫</span>  Offline",
+		"max-length": 24,
+		"tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%\n{ipaddr}",
+		"tooltip-format-ethernet": "{ifname}\n{ipaddr}",
+		"tooltip-format-disconnected": "No network connection",
+		"on-click": "nm-connection-editor"
+	},
+
+	"pulseaudio": {
+		"format": "<span font_family='OpenMoji'>{icon}</span>  {volume}%",
+		"format-bluetooth": "<span font_family='OpenMoji'>🎧</span>  {volume}%",
+		"format-muted": "<span font_family='OpenMoji'>🔇</span>  Muted",
+		"format-bluetooth-muted": "<span font_family='OpenMoji'>🔇</span>  Muted",
+		"format-icons": {
+			"headphone": "🎧",
+			"headset": "🎧",
+			"default": ["🔈", "🔉", "🔊"]
+		},
+		"scroll-step": 5,
+		"max-volume": 100,
+		"tooltip-format": "{desc}\nClick: sound settings · Right-click: mute",
+		"on-click": "pavucontrol",
+		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
+	},
+
+	"battery": {
+		"interval": 30,
+		"states": {
+			"warning": 20,
+			"critical": 10
+		},
+		"format": "<span font_family='OpenMoji'>🔋</span>  {capacity}%",
+		"format-charging": "<span font_family='OpenMoji'>⚡</span>  {capacity}%",
+		"format-plugged": "<span font_family='OpenMoji'>🔌</span>  {capacity}%",
+		"format-full": "<span font_family='OpenMoji'>🔋</span>  Full",
+		"tooltip-format": "{capacity}% · {timeTo}"
+	},
+
+	"tray": {
+		"icon-size": 16,
+		"spacing": 8
+	},
+
+	"custom/hyprshutdown": {
+		"format": "<span font_family='OpenMoji'>🚪</span>",
+		"tooltip-format": "Log out, restart, or shut down",
+		"menu": "on-click",
+		"menu-file": "/etc/xdg/waybar/power-menu.xml",
+		"menu-actions": {
+			"logout": "hyprshutdown --top-label 'Logging out...'",
+			"restart": "hyprshutdown --top-label 'Restarting...' --post-cmd 'systemctl reboot'",
+			"shutdown": "hyprshutdown --top-label 'Shutting down...' --post-cmd 'systemctl poweroff'"
+		}
 	}
 }

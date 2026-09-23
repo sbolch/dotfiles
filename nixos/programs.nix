@@ -12,6 +12,7 @@
       helix
       dysk
       fastfetch
+      amber-lang
 
       yubikey-manager
       yubioath-flutter
