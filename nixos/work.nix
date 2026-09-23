@@ -26,6 +26,7 @@ in
     zed-editor
     jetbrains-toolbox
     podman-desktop
+    opencode
   ];
 
   programs = {
