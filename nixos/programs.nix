@@ -9,6 +9,7 @@
       pciutils
       usbutils
 
+      eza
       helix
       dysk
       fastfetch
