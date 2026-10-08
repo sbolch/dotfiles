@@ -8,7 +8,7 @@
 @define-color red #e67e80;
 
 * {
-    font-family: "Fira Sans", "FiraCode Nerd Font Mono", "OpenMoji", sans-serif;
+    font-family: "Fira Sans", "FiraCode Nerd Font Mono", sans-serif;
     font-size: 13px;
     border: none;
     border-radius: 0;
@@ -59,8 +59,10 @@ tooltip label {
 
 #custom-launcher,
 #custom-hyprshutdown,
-#clock,
+#custom-clock,
+#custom-weather,
 #network,
+#bluetooth,
 #pulseaudio,
 #battery,
 #tray {
@@ -69,10 +71,22 @@ tooltip label {
     border-radius: 6px;
 }
 
+#network {
+    font-size: 18px;
+}
+
+#bluetooth {
+    font-size: 11px;
+}
+
+#pulseaudio {
+    font-size: 16px;
+}
+
 #custom-launcher {
     margin-left: 8px;
     padding: 0 8px;
-    font-size: 16px;
+    font-size: 18px;
 }
 
 #custom-hyprshutdown {
@@ -93,16 +107,18 @@ tooltip label {
 }
 
 #workspaces button,
-#clock,
+#custom-clock,
+#custom-weather,
 #pulseaudio,
 #battery {
-    font-family: "FiraCode Nerd Font Mono", "OpenMoji", monospace;
+    font-family: "FiraCode Nerd Font Mono", monospace;
 }
 
 #workspaces button:hover,
 #custom-launcher:hover,
 #custom-hyprshutdown:hover,
 #network:hover,
+#bluetooth:hover,
 #pulseaudio:hover {
     background: @bg1;
     color: @fg;
@@ -122,12 +138,18 @@ tooltip label {
     color: @bg0;
 }
 
-#clock {
+#custom-clock {
     color: @green;
+}
+
+#custom-clock:hover {
+    background: @bg1;
 }
 
 #network.disconnected,
 #network.disabled,
+#bluetooth.off,
+#bluetooth.disabled,
 #pulseaudio.muted {
     color: @muted;
 }

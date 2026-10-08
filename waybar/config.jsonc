@@ -5,51 +5,73 @@
 	"spacing": 4,
 
 	"modules-left": ["custom/launcher", "hyprland/workspaces"],
-	"modules-center": ["clock"],
-	"modules-right": ["network", "pulseaudio", "battery", "tray", "custom/hyprshutdown"],
+	"modules-center": ["custom/clock", "custom/weather"],
+	"modules-right": ["network", "bluetooth", "pulseaudio", "battery", "tray", "custom/hyprshutdown"],
 
 	"custom/launcher": {
-		"format": "<span font_family='OpenMoji'>🌿</span>",
+		"format": "<span font_family='FiraCode Nerd Font Mono'></span>",
 		"on-click": "rofi -show drun",
 		"tooltip": false
 	},
 
 	"hyprland/workspaces": {
-		"format": "{name}",
-		"sort-by": "number"
+		"format": "{id}",
+		"sort-by": "number",
+		"persistent-workspaces": {
+			"*": [1, 2]
+		}
 	},
 
-	"clock": {
-		"format": "{:%A - %H:%M}",
-		"tooltip-format": "{:%Y-%m-%d}",
+	"custom/clock": {
+		"exec": "$HOME/.config/waybar/fuzzy-clock.sh",
+		"return-type": "json",
+		"interval": 15,
 		"on-click": "gsimplecal"
 	},
 
+	"custom/weather": {
+		"exec": "$HOME/.config/waybar/weather.py",
+		"return-type": "json",
+		"interval": 600
+	},
+
 	"network": {
-		"format-wifi": "<span font_family='OpenMoji'>📶</span>  {essid}",
-		"format-ethernet": "<span font_family='OpenMoji'>🔌</span>  Wired",
-		"format-linked": "<span font_family='OpenMoji'>🔌</span>  Connecting",
-		"format-disconnected": "<span font_family='OpenMoji'>🚫</span>  Offline",
-		"max-length": 24,
+		"format-wifi": "<span font_family='FiraCode Nerd Font Mono'>󰖩</span>",
+		"format-ethernet": "<span font_family='FiraCode Nerd Font Mono'>󰈀</span>",
+		"format-linked": "<span font_family='FiraCode Nerd Font Mono'>󰈀</span>",
+		"format-disconnected": "<span font_family='FiraCode Nerd Font Mono'>󰖪</span>",
 		"tooltip-format-wifi": "{essid}\nSignal: {signalStrength}%\n{ipaddr}",
 		"tooltip-format-ethernet": "{ifname}\n{ipaddr}",
 		"tooltip-format-disconnected": "No network connection",
 		"on-click": "nm-connection-editor"
 	},
 
+	"bluetooth": {
+		"format-on": "<span font_family='FiraCode Nerd Font Mono'>󰂯</span>",
+		"format-connected": "<span font_family='FiraCode Nerd Font Mono'>󰂯</span>",
+		"format-off": "<span font_family='FiraCode Nerd Font Mono'>󰂲</span>",
+		"format-disabled": "<span font_family='FiraCode Nerd Font Mono'>󰂲</span>",
+		"format-no-controller": "",
+		"tooltip-format": "{controller_alias}\n{status}",
+		"tooltip-format-connected": "{controller_alias}\n{device_enumerate}",
+		"tooltip-format-enumerate-connected": "{device_alias}",
+		"tooltip-format-enumerate-connected-battery": "{device_alias} · {device_battery_percentage}%",
+		"on-click": "blueman-manager"
+	},
+
 	"pulseaudio": {
-		"format": "<span font_family='OpenMoji'>{icon}</span>  {volume}%",
-		"format-bluetooth": "<span font_family='OpenMoji'>🎧</span>  {volume}%",
-		"format-muted": "<span font_family='OpenMoji'>🔇</span>  Muted",
-		"format-bluetooth-muted": "<span font_family='OpenMoji'>🔇</span>  Muted",
+		"format": "<span font_family='FiraCode Nerd Font Mono'>{icon}</span>",
+		"format-bluetooth": "<span font_family='FiraCode Nerd Font Mono'>󰥰</span>",
+		"format-muted": "<span font_family='FiraCode Nerd Font Mono'>󰖁</span>",
+		"format-bluetooth-muted": "<span font_family='FiraCode Nerd Font Mono'>󰖁</span>",
 		"format-icons": {
-			"headphone": "🎧",
-			"headset": "🎧",
-			"default": ["🔈", "🔉", "🔊"]
+			"headphone": "󰋋",
+			"headset": "󰋎",
+			"default": ["󰕿", "󰖀", "󰕾"]
 		},
 		"scroll-step": 5,
 		"max-volume": 100,
-		"tooltip-format": "{desc}\nClick: sound settings · Right-click: mute",
+		"tooltip-format": "{volume}% · {desc}\nClick: sound settings · Right-click: mute",
 		"on-click": "pavucontrol",
 		"on-click-right": "wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle"
 	},
@@ -60,10 +82,11 @@
 			"warning": 20,
 			"critical": 10
 		},
-		"format": "<span font_family='OpenMoji'>🔋</span>  {capacity}%",
-		"format-charging": "<span font_family='OpenMoji'>⚡</span>  {capacity}%",
-		"format-plugged": "<span font_family='OpenMoji'>🔌</span>  {capacity}%",
-		"format-full": "<span font_family='OpenMoji'>🔋</span>  Full",
+		"format": "<span font_family='FiraCode Nerd Font Mono'>{icon}</span>",
+		"format-charging": "<span font_family='FiraCode Nerd Font Mono'>󰂄</span>",
+		"format-plugged": "<span font_family='FiraCode Nerd Font Mono'>󰚥</span>",
+		"format-full": "<span font_family='FiraCode Nerd Font Mono'>󰁹</span>",
+		"format-icons": ["󰁺", "󰁻", "󰁼", "󰁽", "󰁾", "󰁿", "󰂀", "󰂁", "󰂂", "󰁹"],
 		"tooltip-format": "{capacity}% · {timeTo}"
 	},
 
@@ -73,7 +96,7 @@
 	},
 
 	"custom/hyprshutdown": {
-		"format": "<span font_family='OpenMoji'>🚪</span>",
+		"format": "<span font_family='FiraCode Nerd Font Mono'>󰐥</span>",
 		"tooltip-format": "Log out, restart, or shut down",
 		"menu": "on-click",
 		"menu-file": "/etc/xdg/waybar/power-menu.xml",

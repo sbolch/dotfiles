@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 
 let
   phpDev = pkgs.php.withExtensions (
@@ -10,6 +10,9 @@ let
       redis
     ])
   );
+  unstable = import <nixpkgs-unstable> {
+    config = config.nixpkgs.config;
+  };
 in
 {
   environment.systemPackages = with pkgs; [
@@ -26,7 +29,7 @@ in
     zed-editor
     jetbrains-toolbox
     podman-desktop
-    opencode
+    unstable.opencode
   ];
 
   programs = {
