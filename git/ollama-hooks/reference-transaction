@@ -1,0 +1,7 @@
+#!/bin/sh
+# Preserve standard repository hooks while supplying global Ollama generation.
+local_hooks=$(git rev-parse --git-common-dir 2>/dev/null) || exit 0
+if [ -x "$local_hooks/hooks/reference-transaction" ]; then
+  exec "$local_hooks/hooks/reference-transaction" "$@"
+fi
+exit 0

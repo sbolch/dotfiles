@@ -5,6 +5,7 @@
 [core]
 	autocrlf = input
 	editor = hx
+	hooksPath = ~/dotfiles/git/ollama-hooks
 [gpg]
 	format = ssh
 [init]
@@ -13,3 +14,7 @@
 	gpgsign = true
 [pull]
 	rebase = true
+
+[ollamaCommit]
+	model = qwen3.5:4b
+	timeout = 15

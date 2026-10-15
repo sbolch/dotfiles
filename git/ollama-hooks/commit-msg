@@ -1,0 +1,11 @@
+#!/bin/sh
+# Preserve standard repository hooks while supplying global Ollama generation.
+local_hooks=$(git rev-parse --git-common-dir 2>/dev/null) || exit 0
+hook_dir=$(CDPATH= cd -- "$(dirname -- "$0")" && pwd) || exit
+if command -v ollama >/dev/null 2>&1 && command -v python3 >/dev/null 2>&1; then
+  python3 "$hook_dir/commit-message.py" "$1" || exit $?
+fi
+if [ -x "$local_hooks/hooks/commit-msg" ]; then
+  exec "$local_hooks/hooks/commit-msg" "$@"
+fi
+exit 0
