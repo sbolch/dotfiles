@@ -21,10 +21,21 @@ def config(key, default):
 def main():
     path = Path(sys.argv[1])
     original = path.read_text()
-    trailers = git('interpret-trailers', '--parse', str(path)).strip().splitlines()
-    pattern = config('ollamaCommit.aiPattern', r'(?i)\b(codex|claude|copilot|cursor|gemini|chatgpt|openai|ollama|aider|gpt[- .]?\d|qwen|gemma|deepseek)\b')
-    if any(t.lower().startswith('co-authored-by:') and re.search(pattern, t) for t in trailers):
+    cleaned = subprocess.run(
+        ['git', 'stripspace', '--strip-comments'], input=original,
+        text=True, check=True, stdout=subprocess.PIPE,
+    ).stdout.strip()
+    subject = cleaned.splitlines()[0] if cleaned else ''
+    # Preserve intentional subjects, including emoji outside the generator's palette.
+    starts_with_emoji = re.match(
+        r'^(?:[\U0001F000-\U0001FAFF\u2600-\u27BF\u2300-\u23FF]'
+        r'|[\u00A9\u00AE\u203C\u2049\u2122\u2139\u2194-\u21FF\u2B00-\u2BFF\u3030\u303D\u3297\u3299]'
+        r'|[#*0-9]\uFE0F?\u20E3)', subject,
+    )
+    minimum_length = int(config('ollamaCommit.minSubjectLength', '20'))
+    if starts_with_emoji or len(subject) >= minimum_length:
         return
+    trailers = git('interpret-trailers', '--parse', str(path)).strip().splitlines()
     model = config('ollamaCommit.model', 'qwen3.5:4b')
     diff = git('diff', '--cached', '--no-ext-diff', '--no-textconv', '--find-renames', '--unified=3')
     stats = git('diff', '--cached', '--stat', '--no-ext-diff', '--no-textconv')

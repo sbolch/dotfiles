@@ -1,0 +1,4 @@
+interface:
+  display_name: "Reliable Context Checkpoint"
+  short_description: "Preserve task state across compaction and handoff"
+  default_prompt: "Use $context-checkpoint to prepare a reliable checkpoint before continuing this task."

@@ -15,12 +15,13 @@ git commit -m "fix"
 git commit --allow-empty-message -m ""
 ```
 
-The `commit-msg` hook replaces proposed messages without a recognized AI
-`Co-authored-by` trailer using the staged diff, root `AGENTS.md`, and `.gitmessage`.
-It preserves existing trailers and does not invent AI attribution. Known AI names
-include Codex, Claude, Copilot, Cursor, Gemini, ChatGPT, OpenAI, Ollama, Aider,
-GPT versions, Qwen, Gemma, and DeepSeek. Recognition is a name match, not identity
-verification. Human-only co-author trailers do not skip generation.
+The `commit-msg` hook replaces only empty or short subjects (fewer than 20
+characters) without a starting emoji,
+using the staged diff, root `AGENTS.md`, and `.gitmessage`. Blank lines and Git
+comments are ignored when checking the subject. Longer subjects and subjects
+starting with an emoji are preserved unchanged.
+It preserves existing trailers and does not invent AI attribution. Co-author
+trailers do not affect whether generation runs.
 
 On generation failure or a 15-second timeout, the original message remains.
 Git requires `--allow-empty-message` to accept an empty fallback. An empty diff
@@ -39,8 +40,7 @@ Configuration accepts global or repository-local overrides:
 ```sh
 git config --global ollamaCommit.model qwen3.5:4b
 git config --global ollamaCommit.timeout 15
-# Optional Python regular expression for recognizing AI co-author identities:
-git config --global ollamaCommit.aiPattern '(?i)\b(codex|claude|copilot)\b'
+git config --global ollamaCommit.minSubjectLength 20
 ```
 
 Dispatcher hooks preserve executable repository hooks in the common Git

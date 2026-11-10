@@ -1,0 +1,4 @@
+interface:
+  display_name: "Focused Context"
+  short_description: "Gather relevant context without losing evidence"
+  default_prompt: "Use $context-focus to gather the context needed for this task while preserving requirements and evidence."

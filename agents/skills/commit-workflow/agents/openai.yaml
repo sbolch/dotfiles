@@ -1,0 +1,4 @@
+interface:
+  display_name: "Project-aware Commits"
+  short_description: "Draft accurate commits and honor Git conventions"
+  default_prompt: "Use $commit-workflow to inspect the requested changes and prepare a commit message that follows this repository and my Git settings."
